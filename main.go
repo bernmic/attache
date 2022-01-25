@@ -3,16 +3,17 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/emersion/go-imap"
-	"github.com/emersion/go-imap/client"
-	"github.com/emersion/go-message"
-	_ "github.com/emersion/go-message/charset"
-	"github.com/emersion/go-message/mail"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/emersion/go-imap"
+	"github.com/emersion/go-imap/client"
+	"github.com/emersion/go-message"
+	_ "github.com/emersion/go-message/charset"
+	"github.com/emersion/go-message/mail"
 )
 
 var (
@@ -122,20 +123,20 @@ func saveAttachments(m *imap.Message) {
 
 	// Print some info about the message
 	/*
-	header := mr.Header
-	if date, err := header.Date(); err == nil {
-		log.Println("Date:", date)
-	}
-	if from, err := header.AddressList("From"); err == nil {
-		log.Println("From:", from)
-	}
-	if to, err := header.AddressList("To"); err == nil {
-		log.Println("To:", to)
-	}
-	if subject, err := header.Subject(); err == nil {
-		log.Println("Subject:", subject)
-	}
-*/
+		header := mr.Header
+		if date, err := header.Date(); err == nil {
+			log.Println("Date:", date)
+		}
+		if from, err := header.AddressList("From"); err == nil {
+			log.Println("From:", from)
+		}
+		if to, err := header.AddressList("To"); err == nil {
+			log.Println("To:", to)
+		}
+		if subject, err := header.Subject(); err == nil {
+			log.Println("Subject:", subject)
+		}
+	*/
 	from, err := mr.Header.AddressList("From")
 	if err != nil {
 		log.Println(err)
@@ -162,7 +163,7 @@ func saveAttachments(m *imap.Message) {
 	for {
 		p, err := mr.NextPart()
 		if err == io.EOF {
-			log.Printf("Error is %v", err.(type))
+			log.Printf("Error is %v", err)
 			break
 		} else if err != nil {
 			log.Printf("Error is %w", err)
@@ -205,7 +206,7 @@ func saveAttachments(m *imap.Message) {
 				log.Printf("Error reading attachment %s: %v\n", filename, err)
 				continue
 			}
-			log.Printf("Saved %v bytes into %v\n", size, dir + "/" + filename)
+			log.Printf("Saved %v bytes into %v\n", size, dir+"/"+filename)
 		}
 	}
 }
