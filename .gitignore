@@ -3,6 +3,7 @@
 *.exe
 .mvn/
 .idea/
-go2music
 *.tar
-go2music.yaml
+*.zip
+attache
+.DS_Store
